@@ -8,33 +8,25 @@ var mainObject = {
     yourGuesses: document.getElementById("yourGuesses")
   },
   currentWord: {},
-  processKey(key) {
-    debugger;
-    if (key.match(/[a-z]/i) && key.length === 1) {
-      this.checkGuess(key);
-    } else {
-      return;
-    }
-  },
-  guesses: { correct: [""], incorrect: [] },
+  guesses: { correct: [], incorrect: [] },
   checkGuess(key) {
-    if (
-      this.guesses.correct.includes(key) ||
-      this.guesses.incorrect.includes(key)
-    ) {
-      return;
-    } else if (this.currentWord.word.includes(key)) {
-      this.guesses.correct.push(key);
-    } else {
-      this.guesses.incorrect.push(key);
-      console.log(key);
+    if (key.match(/[a-z]/i) && key.length === 1) {
+      if (
+        this.guesses.correct.includes(key) ||
+        this.guesses.incorrect.includes(key)
+      ) {
+        return;
+      } else if (this.currentWord.word.includes(key)) {
+        this.guesses.correct.push(key);
+      } else {
+        this.guesses.incorrect.push(key);
+      }
     }
   },
   get currentProgress() {
-    let word = this.currentWord.word;
     let ret = [];
-    for (let i = 0; i < word.length; i++) {
-      const e = word[i];
+    for (let i = 0; i < this.currentWord.word.length; i++) {
+      const e = this.currentWord.word[i];
       if (this.guesses.correct.includes(e)) {
         ret.push(e);
       } else if (e.match(/[a-z]/i)) {
@@ -48,17 +40,18 @@ var mainObject = {
   showProgress() {
     console.log(mainObject);
     this.DOMElements.theWord.textContent = "";
-    for (let i = 0; i < this.currentProgress.length; i++) {
-      this.DOMElements.theWord.textContent += " " + this.currentProgress[i];
-    }
+    this.currentProgress.forEach(e => {
+      this.DOMElements.theWord.textContent += " " + e;
+    });
     this.DOMElements.yourGuesses.innerText = this.guesses.incorrect.toString();
   },
   start() {
     this.currentWord = allData[Math.floor(Math.random() * allData.length)];
+    this.currentWord.word = this.currentWord.word.toLowerCase();
     console.log(this.currentWord.word);
     this.showProgress();
     document.onkeyup = event => {
-      this.processKey(event.key);
+      this.checkGuess(event.key);
       this.showProgress();
     };
   }
