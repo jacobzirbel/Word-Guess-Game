@@ -102,6 +102,8 @@ var mainObject = {
   },
   start() {
     this.DOMElements.game.style = "display: flex";
+    this.DOMElements.clues.textContent = "Clues: ";
+    this.DOMElements.revealed.textContent = "";
     this.points = 8;
     this.guesses.correct = [];
     this.guesses.incorrect = [];
@@ -110,7 +112,13 @@ var mainObject = {
     this.currentWord.word = this.currentWord.word.toLowerCase();
     this.DOMElements.bigClueButton.disabled = false;
     this.DOMElements.smallClueButton.disabled = false;
-    if (this.currentWord.bigClues[0].includes("undefined")) {
+    for (let i = 0; i < this.currentWord.bigClues.length; i++) {
+      const e = this.currentWord.bigClues[i];
+      if (e.includes("undefined")) {
+        this.currentWord.bigClues.splice(i, 1);
+      }
+    }
+    if (this.currentWord.bigClues.length === 0) {
       this.DOMElements.bigClueButton.disabled = true;
     }
     console.log(allData);
