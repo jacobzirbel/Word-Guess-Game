@@ -3,12 +3,35 @@ var allData = [{ "word": "Hannah Abbott", "smallClues": ["Species: human"], "big
 
 var mainObject = {
   DOMElements: {
+    game: document.getElementById("game"),
+    wordHeader: document.getElementById("wordHeader"),
     theWord: document.getElementById("theWord"),
+    revealed: document.getElementById("revealed"),
     points: document.getElementById("points"),
-    yourGuesses: document.getElementById("yourGuesses")
+    yourGuesses: document.getElementById("yourGuesses"),
+    clues: document.getElementById("clues"),
+    smallClueButton: document.getElementById("clue1"),
+    bigClueButton: document.getElementById("clue2"),
+    wins: document.getElementById("wins"),
+    losses: document.getElementById("losses")
   },
   currentWord: {},
   guesses: { correct: [], incorrect: [] },
+  points: 8,
+  wins: 0,
+  losses: 0,
+  losePoints(amount) {
+    this.points = this.points - amount;
+    if (this.points < 1) {
+      this.lose();
+    }
+    if (this.points < 4) {
+      this.DOMElements.smallClueButton.disabled = true;
+    }
+    if (this.points < 7) {
+      this.DOMElements.bigClueButton.disabled = true;
+    }
+  },
   checkGuess(key) {
     if (key.match(/[a-z]/i) && key.length === 1) {
       if (
@@ -20,8 +43,24 @@ var mainObject = {
         this.guesses.correct.push(key);
       } else {
         this.guesses.incorrect.push(key);
+        this.losePoints(1);
       }
     }
+  },
+  showClue(t) {
+    let clues;
+    if (t === 1) {
+      clues = this.currentWord.smallClues;
+      this.DOMElements.smallClueButton.style = "display:none";
+      this.losePoints(2);
+    } else {
+      clues = this.currentWord.bigClues;
+      this.DOMElements.bigClueButton.style = "display:none";
+      this.losePoints(5);
+    }
+    this.showProgress();
+    let i = Math.floor(Math.random() * clues.length);
+    this.DOMElements.clues.textContent += clues[i];
   },
   get currentProgress() {
     let ret = [];
@@ -43,11 +82,42 @@ var mainObject = {
     this.currentProgress.forEach(e => {
       this.DOMElements.theWord.textContent += " " + e;
     });
+    if (!this.currentProgress.includes("_")) {
+      this.win();
+      return;
+    }
+    this.DOMElements.points.textContent = this.points;
     this.DOMElements.yourGuesses.innerText = this.guesses.incorrect.toString();
   },
+  win() {
+    this.wins++;
+    this.DOMElements.wins.textContent = "Wins: " + this.wins;
+  },
+  lose() {
+    this.losses++;
+    debugger;
+    this.DOMElements.losses.textContent = "Losses: " + this.losses;
+    this.DOMElements.revealed.textContent = this.currentWord.word;
+    document.onkeyup = e => {};
+  },
   start() {
-    this.currentWord = allData[Math.floor(Math.random() * allData.length)];
+    this.DOMElements.game.style = "display: flex";
+    this.points = 8;
+    this.guesses.correct = [];
+    this.guesses.incorrect = [];
+    let i = Math.floor(Math.random() * allData.length);
+    this.currentWord = allData[i];
     this.currentWord.word = this.currentWord.word.toLowerCase();
+    this.DOMElements.bigClueButton.disabled = false;
+    this.DOMElements.smallClueButton.disabled = false;
+    if (this.currentWord.bigClues[0].includes("undefined")) {
+      this.DOMElements.bigClueButton.disabled = true;
+    }
+    console.log(allData);
+    let type;
+    i > 194 ? (type = "Spell") : (type = "Character");
+
+    this.DOMElements.wordHeader.textContent = "Current Word: " + type;
     console.log(this.currentWord.word);
     this.showProgress();
     document.onkeyup = event => {
@@ -56,5 +126,3 @@ var mainObject = {
     };
   }
 };
-
-mainObject.start();

@@ -5,19 +5,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Harry Potter Hangman</title>
+  <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/style.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 
 <body>
-  <h1>Press any key to get started</h1>
-  <h6>Current Word: </h6>
-  <pre id="theWord"></pre>
-  <h6>Number of Points remaining:</h6>
-  <div id="points"></div>
-  <h6>Letters already guessed: </h6>
-  <div id="yourGuesses"></div>
+  <div style="display: flex;flex-direction: row;">
+    <h1>Press to get started</h1><button id="startButton" onclick="mainObject.start()">Start</button>
+  </div>
+  <div id="game" style="display: none;">
+    <h6 id="wordHeader">Current Word: </h6>
+    <div id="revealed"></div>
+    <pre id="theWord"></pre>
+    <div style="display: flex;flex-direction: row;">Number of Points remaining: <p id="points"></p>
+    </div>
+    <div id="wins">Wins: </div>
+    <div id="losses">Losses: </div>
+    <h6>Letters already guessed: </h6>
+    <div id="yourGuesses"></div>
+    <div>
+      <button id="clue2" onclick="mainObject.showClue(2)">Big Clue (5 points)</button>
+      <button id="clue1" onclick="mainObject.showClue(1)">Small clue (2 points)</button>
+      <p id="clues">Clues: </p>
+    </div>
+  </div>
   <script src="assets/javascript/game.js"></script>
 </body>
 
