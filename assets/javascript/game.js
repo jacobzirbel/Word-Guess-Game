@@ -17,7 +17,7 @@ var mainObject = {
   },
   currentWord: {},
   guesses: { correct: [], incorrect: [] },
-  points: 8,
+  points,
   wins: 0,
   losses: 0,
   losePoints(amount) {
@@ -92,13 +92,21 @@ var mainObject = {
   win() {
     this.wins++;
     this.DOMElements.wins.textContent = "Wins: " + this.wins;
+    document.onkeyup = e => {
+      if (e.key === "Enter") {
+        this.start();
+      }
+    };
   },
   lose() {
     this.losses++;
-    debugger;
     this.DOMElements.losses.textContent = "Losses: " + this.losses;
     this.DOMElements.revealed.textContent = this.currentWord.word;
-    document.onkeyup = e => {};
+    document.onkeyup = e => {
+      if (e.key === "Enter") {
+        this.start();
+      }
+    };
   },
   start() {
     this.DOMElements.game.style = "display: flex";
