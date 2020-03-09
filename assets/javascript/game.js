@@ -9,10 +9,11 @@ var mainObject = {
   },
   currentWord: {},
   processKey(key) {
-    if (!key.match(/[a-z]/i)) {
-      return;
-    } else {
+    debugger;
+    if (key.match(/[a-z]/i) && key.length === 1) {
       this.checkGuess(key);
+    } else {
+      return;
     }
   },
   guesses: { correct: [""], incorrect: [] },
@@ -44,7 +45,6 @@ var mainObject = {
     }
     return ret;
   },
-
   showProgress() {
     console.log(mainObject);
     this.DOMElements.theWord.textContent = "";
