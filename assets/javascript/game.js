@@ -121,14 +121,9 @@ var mainObject = {
     this.reset();
     let i = Math.floor(Math.random() * allData.length);
     this.currentWord = allData[i];
-    this.currentWord.word = this.currentWord.word.toLowerCase();
-    // for (let i = 0; i < this.currentWord.bigClues.length; i++) {
-    //   const e = this.currentWord.bigClues[i];
-    //   if (e.includes("undefined")) {
-    //     this.currentWord.bigClues.splice(i, 1);
-    //   }
-    // }
-    this.currentWord.bigClues.push("undefined");
+    this.DOMElements.wordHeader.textContent =
+      "Current Word: " + (i > 194 ? "Spell" : "Character");
+    this.currentWord.word = this.currentWord.word.toUpperCase();
     this.currentWord.bigClues = this.currentWord.bigClues.filter(
       e => !e.includes("undefined")
     );
@@ -137,7 +132,7 @@ var mainObject = {
     }
     this.showProgress();
     document.onkeyup = event => {
-      this.checkGuess(event.key);
+      this.checkGuess(event.key.toUpperCase());
       this.showProgress();
     };
   }
