@@ -108,33 +108,33 @@ var mainObject = {
       }
     };
   },
-  start() {
+  reset() {
     this.DOMElements.game.style = "display: flex";
     this.DOMElements.clues.textContent = "Clues: ";
     this.DOMElements.revealed.textContent = "";
     this.points = 8;
-    this.guesses.correct = [];
-    this.guesses.incorrect = [];
+    this.guesses = { correct: [], incorrect: [] };
+    this.DOMElements.bigClueButton.disabled = false;
+    this.DOMElements.smallClueButton.disabled = false;
+  },
+  start() {
+    this.reset();
     let i = Math.floor(Math.random() * allData.length);
     this.currentWord = allData[i];
     this.currentWord.word = this.currentWord.word.toLowerCase();
-    this.DOMElements.bigClueButton.disabled = false;
-    this.DOMElements.smallClueButton.disabled = false;
-    for (let i = 0; i < this.currentWord.bigClues.length; i++) {
-      const e = this.currentWord.bigClues[i];
-      if (e.includes("undefined")) {
-        this.currentWord.bigClues.splice(i, 1);
-      }
-    }
+    // for (let i = 0; i < this.currentWord.bigClues.length; i++) {
+    //   const e = this.currentWord.bigClues[i];
+    //   if (e.includes("undefined")) {
+    //     this.currentWord.bigClues.splice(i, 1);
+    //   }
+    // }
+    this.currentWord.bigClues.push("undefined");
+    this.currentWord.bigClues = this.currentWord.bigClues.filter(
+      e => !e.includes("undefined")
+    );
     if (this.currentWord.bigClues.length === 0) {
       this.DOMElements.bigClueButton.disabled = true;
     }
-    console.log(allData);
-    let type;
-    i > 194 ? (type = "Spell") : (type = "Character");
-
-    this.DOMElements.wordHeader.textContent = "Current Word: " + type;
-    console.log(this.currentWord.word);
     this.showProgress();
     document.onkeyup = event => {
       this.checkGuess(event.key);
