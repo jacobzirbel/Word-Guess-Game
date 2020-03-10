@@ -91,7 +91,6 @@ var mainObject = {
     return ret;
   },
   showProgress() {
-    console.log(mainObject);
     this.DOMElements.theWord.textContent = "";
     this.currentProgress.forEach(e => {
       this.DOMElements.theWord.textContent += " " + e;
