@@ -58,7 +58,7 @@ var mainObject = {
     // invoked by button click
     // t = 1 for small clue, t = 2 for big clue
     let clues;
-    if (t === 1) {
+    if (t === "s") {
       clues = this.currentWord.smallClues;
       // Hide button after use
       this.DOMElements.smallClueButton.disabled = true;
