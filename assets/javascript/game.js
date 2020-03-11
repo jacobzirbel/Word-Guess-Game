@@ -56,7 +56,7 @@ var mainObject = {
   },
   showClue(t) {
     // invoked by button click
-    // t = 1 for small clue, t = 2 for big clue
+    // t = 's' for small clue, t = 'b' for big clue
     let clues;
     if (t === "s") {
       clues = this.currentWord.smallClues;
