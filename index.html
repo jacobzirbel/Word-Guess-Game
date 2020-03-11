@@ -12,14 +12,14 @@
 </head>
 
 <body>
-  <div style="display: flex;flex-direction: row;">
+  <div class="container">
     <h1>Press to get started</h1><button id="startButton" onclick="mainObject.start()">Start</button>
   </div>
   <div id="game" style="display: none;">
     <h6 id="wordHeader">Current Word: </h6>
     <div id="revealed"></div>
     <pre id="theWord"></pre>
-    <div style="display: flex;flex-direction: row;">Number of Points remaining: <p id="points"></p>
+    <div id="pointsContainer">Number of Points remaining: <p id="points"></p>
     </div>
     <div id="wins">Wins: </div>
     <div id="losses">Losses: </div>

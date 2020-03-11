@@ -1,6 +1,15 @@
 body {
   width: 600px;
+  height: 900px;
   margin: 20px auto;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+}
+#pointsContainer {
+  display: flex;
+  flex-direction: row;
 }
 #game {
   display: none;
