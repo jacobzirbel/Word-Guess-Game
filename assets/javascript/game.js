@@ -144,6 +144,9 @@ var mainObject = {
 		this.currentWord.bigClues = this.currentWord.bigClues.filter(
 			e => !e.includes("undefined")
 		);
+		this.currentWord.smallClues = this.currentWord.bigClues.filter(
+			e => !e.includes("Spell")
+		);
 		// hide button if no clues
 		if (this.currentWord.bigClues.length === 0) {
 			this.DOMElements.bigClueButton.disabled = true;
