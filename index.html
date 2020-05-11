@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Harry Potter Hangman</title>
+		<link rel="stylesheet" href="assets/css/reset.css" />
+		<link rel="stylesheet" href="assets/css/style.css" />
+	</head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Harry Potter Hangman</title>
-  <link rel="stylesheet" href="assets/css/reset.css">
-  <link rel="stylesheet" href="assets/css/style.css" />
-</head>
-
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>Press to get started</h1><button id="startButton" onclick="mainObject.start()">Start</button>
-    </div>
-    <div id="game" style="display: none;">
-      <h6 id="wordHeader">Current Word: </h6>
-      <div id="revealed"></div>
-      <pre id="theWord"></pre>
-      <div id="pointsContainer">Number of Points remaining: <p id="points"></p>
-      </div>
-      <div id="wins">Wins: </div>
-      <div id="losses">Losses: </div>
-      <h6>Letters already guessed: </h6>
-      <div id="yourGuesses"></div>
-      <div>
-        <button id="clue2" onclick="mainObject.showClue('b')">Big Clue (5 points)</button>
-        <button id="clue1" onclick="mainObject.showClue('s')">Small clue (2 points)</button>
-        <p id="clues">Clues: </p>
-      </div>
-    </div>
-  </div>
-  <script src="assets/javascript/data.js"></script>
-  <script src="assets/javascript/game.js"></script>
-</body>
-
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>Press to get started</h1>
+				<button id="startButton" onclick="mainObject.start()">Start</button>
+			</div>
+			<div id="game" style="display: none;">
+				<h6 id="wordHeader">Current Word:</h6>
+				<div id="revealed"></div>
+				<pre id="theWord"></pre>
+				<div id="pointsContainer">
+					Number of Points remaining:
+					<p id="points"></p>
+				</div>
+				<div id="wins">Wins:</div>
+				<div id="losses">Losses:</div>
+				<h6>Letters already guessed:</h6>
+				<div id="yourGuesses"></div>
+				<div>
+					<button id="clue2" onclick="mainObject.showClue('b')">
+						Big Clue (5 points)
+					</button>
+					<button id="clue1" onclick="mainObject.showClue('s')">
+						Small clue (2 points)
+					</button>
+					<p id="clues">Clues:</p>
+				</div>
+				<fieldset id="textbox">
+					<label>Enter guesses here for mobile</label>
+					<input type="text" id="myText" value="text here" />
+				</fieldset>
+			</div>
+		</div>
+		<script src="assets/javascript/data.js"></script>
+		<script src="assets/javascript/game.js"></script>
+	</body>
 </html>
